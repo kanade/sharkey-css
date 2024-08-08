@@ -5,12 +5,15 @@
 ## 更新履歴
 <details><summary>クリックで展開できます</summary><div>
 
+- 2024/08/08
+  - いろいろ更新しました
 - 2024/05/10
   - 各ノートのいいねボタンを消す（誤爆防止）
 - 2024/04/22
   - 投稿日時に絶対時間表記にする
   - 公開範囲によって背景色を変える
   - 通知のポップアップを消す
+
 </div></details>
 
 ## 目次
@@ -26,6 +29,15 @@
     - [公開範囲によって背景色を変える](#公開範囲によって背景色を変える)
     - [通知のポップアップを消す](#通知のポップアップを消す)
     - [各ノートのいいねボタンを消す（誤爆防止）](#各ノートのいいねボタンを消す誤爆防止)
+    - [ブーストボタンを無効にする](#ブーストボタンを無効にする)
+    - [通知インジケータの非表示](#通知インジケータの非表示)
+    - [設定 → 絵文字ピッカーの絵文字サイズを拡大](#設定--絵文字ピッカーの絵文字サイズを拡大)
+    - [リアクション選択およびノートで絵文字選択時の絵文字サイズを拡大](#リアクション選択およびノートで絵文字選択時の絵文字サイズを拡大)
+    - [リアクション検索のボックスを上に固定](#リアクション検索のボックスを上に固定)
+    - [返信元ノートをスクロール可能にする](#返信元ノートをスクロール可能にする)
+    - [投稿フォームの要素順序並び替え](#投稿フォームの要素順序並び替え)
+    - [デッキUI 編集サイドバーの非表示](#デッキui-編集サイドバーの非表示)
+    - [デッキUIのポップアップ調整](#デッキuiのポップアップ調整)
     - [テンプレ](#テンプレ)
 - [欲しいものリスト](#欲しいものリスト)
 
@@ -135,7 +147,7 @@ time:after {
 
 ---
 ### 各ノートのいいねボタンを消す（誤爆防止）
-Misskeyユーザーはリアクションを使うことが多いので、いいねボタンを非表示にします
+Misskeyユーザーはリアクションを使うことが多いので、いいねボタンを非表示にしたいという需要に。
 ```css
 /**
  * 各ノートのいいねボタンを消す（誤爆防止）
@@ -152,6 +164,189 @@ Misskeyユーザーはリアクションを使うことが多いので、いい�
  */
 .MkNote-footerButton-viCy:has(.ph-heart) {
     display: none;
+}
+```
+
+---
+### ブーストボタンを無効にする
+一発でブーストできちゃうので無効化する
+```css
+/**
+ * ブーストボタンを無効にする
+ */
+.SkNote-footer-gqd7 button:has(.ph-rocket-launch) {
+    pointer-events: none;
+    /* 以下はボタンの親要素に適用しないと効かない */
+    /*     cursor: not-allowed; */
+}
+
+```
+
+---
+### 通知インジケータの非表示
+```css
+/**
+ * 通知インジケータの非表示
+ */
+.navbar-itemIndicator-xiU7 {
+    display: none;
+    /* スマホの場合は以下のように !important 付けないと消えないかも */
+    /* display: none !important; */
+}
+```
+
+---
+### 設定 → 絵文字ピッカーの絵文字サイズを拡大
+```css
+/**
+ * 設定 → 絵文字ピッカーの絵文字サイズを拡大
+ */
+.pages-settings-emoji-picker-emojis-iEIM .MkCustomEmoji-normal-5kTm,
+.pages-settings-emoji-picker-emojis-iEIM .MkEmoji-root-agin
+{
+    height: 2.25em;
+}
+```
+
+---
+### リアクション選択およびノートで絵文字選択時の絵文字サイズを拡大
+```css
+/**
+ * 
+ */
+.emojis .MkCustomEmoji-normal-5kTm {
+    height: 2.25em;
+}
+```
+
+---
+### リアクション検索のボックスを上に固定
+```css
+/**
+ * リアクション検索のボックスを上に固定
+ */
+.omfetrab > .search:not(.filled) {
+    order: 0 !important;
+}
+```
+
+---
+### 返信元ノートをスクロール可能にする
+スマホで引用やリプライするときに返信元が長すぎて入力できない問題に対処
+```css
+/**
+ * 返信元ノートをスクロール可能にする
+ */
+.MkPostForm-targetNote-hv1G {
+    height: 4em !important;
+    overflow: scroll;
+}
+```
+
+---
+### 投稿フォームの要素順序並び替え
+順番は好みに合せてください。数字が小さいほど上に来ます。
+```css
+/**
+ * 投稿フォームの要素順序並び替え
+ */
+.MkPostFormDialog-form-xski {
+    display: flex;
+    flex-flow: column;
+}
+/* 添付ファイル */
+.MkPostFormAttaches-root-j7LU {
+    order: 1;
+}
+/* header */
+.MkPostForm-header-6ccQ {
+    order: 2;
+}
+/* ダイレクトの宛先 */
+.MkPostForm-toSpecified-9eP3 {
+    order: 3;
+}
+/* ダイレクトの宛先の警告 */
+.MkPostForm-hasNotSpecifiedMentions-eg2G {
+    order: 4;
+}
+/* 返信元 */
+.MkPostForm-targetNote-hv1G {
+    order: 3;
+}
+/* ツールバー（画像添付やアンケート、絵文字ピッカーなど） */
+.MkPostForm-footer-kr7J {
+    order: 6;
+}
+/* CW注意文の入力欄 */
+.MkPostForm-cw-xQx9 {
+    order: 7;
+}
+/* ノート本文の入力欄 */
+.MkPostForm-textOuter-nEld {
+    order: 9;
+}
+/* ハッシュタグ */
+.MkPostForm-hashtags-qwIh {
+    order: 10;
+}
+/* プレビュー */
+.MkPostForm-preview-oGjR {
+    order: 11;
+}
+```
+
+---
+### デッキUI 編集サイドバーの非表示
+私はデッキ構成が済んだら非表示にしてます。
+```css
+/**
+ * デッキUI 編集サイドバーの非表示
+ */
+.deck-sideMenu-ECNb {
+    display: none;
+}
+```
+
+---
+### デッキUIのポップアップ調整
+デフォだとポップアップが小さいので大きくしてます。  
+最大化以外のサイズ調整ができなくなる副作用があります。
+```css
+/**
+ * デッキUIのポップアップ調整
+ */
+/* デッキUIのポップアップ */
+.MkWindow-root-pAOc:not(.MkWindow-maximized-wAht), /* 設定 */
+.MkPostFormDialog-form-xski /* 投稿 */
+{
+    width: 40% !important;
+    min-width: 480px;
+    max-width: 1280px;
+    height: 80% !important;
+}
+
+/* ノート入力ポップアップ */
+.MkPostForm-modal-xtDg._popup {
+    width: 40%;
+    min-width: 480px;
+    max-width: initial;
+    height: 70vh;
+    max-height: 70vh;
+    top: 15%;
+    overflow: scroll;
+}
+
+/* ノート入力欄 */
+.MkPostForm-modal-xtDg._popup .MkPostForm-text-8B0D {
+    height: 28vh;
+}
+
+/* ノートのプレビュー */
+.MkPostForm-modal-xtDg._popup .MkPostForm-preview-oGjR {
+    height: 28vh;
+    overflow: scroll;
+    max-height: initial !important;
 }
 ```
 
